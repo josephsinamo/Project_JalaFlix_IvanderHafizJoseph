@@ -55,12 +55,11 @@ class PelangganPremium extends Pelanggan {
 
     @Override
     public int getMaxDevices() {
-        return 5; // Akun Premium bisa 5 perangkat
+        return 5; 
     }
 
     @Override
     public void tambahFilm(Film film) {
-        // Pelanggan premium bisa akses semua jenis film (termasuk FilmOriginal)
         super.tambahFilm(film);
     }
 }
@@ -73,12 +72,11 @@ class PelangganBiasa extends Pelanggan {
 
     @Override
     public int getMaxDevices() {
-        return 1; // Akun Biasa cuma bisa 1 perangkat
+        return 1; 
     }
 
     @Override
     public void tambahFilm(Film film) {
-        // Filter khusus: Pelanggan biasa tidak bisa nonton FilmOriginal
         if (film instanceof FilmOriginal) {
             System.out.println("Gagal: " + film.getJudul() + " hanya untuk member Premium!");
         } else {
