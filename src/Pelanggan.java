@@ -34,7 +34,6 @@ class Pelanggan {
         boolean akses = false;
         Kategori katFilm = film.getKategori();
 
-        // Logika pengecekan akses berdasarkan kategori pelanggan
         if (this.kategori.equalsIgnoreCase("platinum")) {
             akses = true;
         } else if (this.kategori.equalsIgnoreCase("gold")) {
