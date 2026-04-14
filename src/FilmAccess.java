@@ -1,4 +1,6 @@
 public interface FilmAccess {
-    void LihatDaftarFilm();
+
+    // masih rancangan
+    // void LihatDaftarFilm();
     void putarFilm(Film film);
 }
