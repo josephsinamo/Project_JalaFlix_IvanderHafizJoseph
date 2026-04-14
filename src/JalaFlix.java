@@ -2,43 +2,56 @@ import java.util.*;
 
 public class JalaFlix {
 
-    public static List <Film> film = new ArrayList<>();
-    public static List<Pelanggan> pelanggan = new ArrayList<>();
+    public static List<Film> filmList = new ArrayList<>();
+    public static List<Pelanggan> pelangganList = new ArrayList<>();
+
     public static void main(String[] args) {
-        film.add(new Film("Jala Saga", Genre.Action, 2026, "Misi", 9.5, "Jala", "Budi", 17, true));
-        film.add(new Film("Tawa Desa", Genre.Comedy, 2024, "Lucu", 8.0, "Maju", "Siti", 13, false));
-        film.add(new Film("Ruang Hampa", Genre.SciFi, 2023, "Hampa", 8.7, "Cosm", "Andi", 13, false));
-        film.add(new Film("Kenangan", Genre.Romance, 2010, "Lama", 7.5, "Clas", "Rudi", 13, false));
-        film.add(new Film("Hutan Tua", Genre.Horror, 2015, "Serem", 6.8, "Scar", "Eko", 17, false));
-        film.add(new Film("Pedang Naga", Genre.Fantasy, 2022, "Pedang", 8.2, "Epic", "Dewi", 13, false));
-        film.add(new Film("Detektif", Genre.Mystery, 2025, "Cilik", 7.9, "Kids", "Bamb", 7, false));
-        film.add(new Film("Ori Mystery", Genre.Thriller, 2026, "Twist", 9.0, "Jala", "X", 18, true));
-        film.add(new Film("Langkah", Genre.Adventure, 2012, "Jauh", 8.5, "Glob", "Joko", 7, false));
-        film.add(new Film("Keluarga", Genre.Drama, 2020, "Sedih", 8.8, "Home", "Lest", 7, false));
+        try {
+            filmList.add(new Film("Jala Saga", Genre.Action, 2026, "Misi penyelamatan dunia", 9.5, "Jala Studio", "Budi", 17, true));
+            filmList.add(new Film("Tawa Desa", Genre.Comedy, 2024, "Kisah lucu di desa", 8.0, "Maju Film", "Siti", 13, false));
+            filmList.add(new Film("Ruang Hampa", Genre.SciFi, 2023, "Eksplorasi luar angkasa", 8.7, "Cosmic", "Andi", 13, false));
+            filmList.add(new Film("Kenangan", Genre.Romance, 2010, "Kisah cinta lama", 7.5, "Classic Pic", "Rudi", 13, false));
+            filmList.add(new Film("Hutan Tua", Genre.Horror, 2015, "Misteri hutan berhantu", 6.8, "Scary Ent", "Eko", 17, false));
 
-        pelanggan.add(new PelangganPlatinum("P01", "Andi", 25, "0811"));
-        pelanggan.add(new PelangganGold("G02", "Deni", 28, "0814"));
-        pelanggan.add(new PelangganGold("G03", "Eka", 35, "0815"));
-        pelanggan.add(new PelangganReguler("R01", "Fani", 19, "0816"));
-        pelanggan.add(new PelangganReguler("R02", "Gani", 1, "0817"));
+            pelangganList.add(new PelangganPlatinum("P01", "Andi", 25, "0811"));
+            pelangganList.add(new PelangganGold("G02", "Deni", 28, "0814"));
+            pelangganList.add(new PelangganReguler("R01", "Fani", 19, "0816"));
+        } catch (Exception e) {
+            System.out.println("Sistem Error: " + e.getMessage());
+        }
 
+        System.out.println("=== SIMULASI TRANSAKSI JALAFLIX ===\n");
 
-        //INFO
-        pelanggan.get(0).info();
-        pelanggan.get(1).info();
-        pelanggan.get(3).info();
+        for (Pelanggan p : pelangganList) {
+            p.info();
+            System.out.println("AKTIVITAS USER:");
+            
+            if (p instanceof PelangganPlatinum) {
+                p.putarFilm(filmList.get(0));
+                p.putarFilm(filmList.get(4));
+            } else if (p instanceof PelangganGold) {
+                p.putarFilm(filmList.get(0));
+                p.putarFilm(filmList.get(1));
+            } else {
+                p.putarFilm(filmList.get(3));
+                p.putarFilm(filmList.get(0));
+            }
+            
+            p.getHistory();
+            System.out.println();
+        }
 
-        //NONTON
-        System.out.println("");
-        pelanggan.get(0).putarFilm(film.get(8));
-        pelanggan.get(0).putarFilm(film.get(1));
-        pelanggan.get(1).putarFilm(film.get(0));
-        pelanggan.get(1).putarFilm(film.get(2));
+        System.out.println("=== VALIDASI INPUT SISTEM ===");
+        try {
+            new PelangganReguler("R99", "Bocil", -5, "0000");
+        } catch (UmurNegatifException e) {
+            System.out.println("[ERROR] " + e.getMessage());
+        }
 
-        //History
-        System.out.println("");
-        pelanggan.get(0).getHistory();
-        pelanggan.get(1).getHistory();
-
+        try {
+            new Film("Film Purba", Genre.Drama, 1750, "-", 0, "-", "-", 0, false);
+        } catch (TahunTooOldException e) {
+            System.out.println("[ERROR] " + e.getMessage());
+        }
     }
 }
