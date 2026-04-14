@@ -16,9 +16,12 @@ public class Film{
 
     public Film(String judul, Genre genre, int tahunRilis, String sinopsis, 
                 double rating, String studio, String sutradara, int kategoriUsia){
+        if (tahunRilis < 1800){
+            throw new TahunTooOldException();  
+        }
+        this.tahunRilis = tahunRilis;
         this.judul = judul;
         this.genre = genre;
-        this.tahunRilis = tahunRilis;
         this.sinopsis = sinopsis;
         this.kategoriUsia = kategoriUsia;
 

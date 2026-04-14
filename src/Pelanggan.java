@@ -1,8 +1,14 @@
 public abstract class Pelanggan implements FilmAccess,HistoryAction{
     protected String kodePelanggan,nama,nomorTelepon,statusKeanggotaan;
     protected HistoryTontonan history  = new HistoryTontonan();
+    protected int umur;
 
-    public Pelanggan(String kodePelanggan, String nama, String nomorTelepon) {
+    public Pelanggan(String kodePelanggan, String nama, int umur, String nomorTelepon) {
+        if (umur < 0){
+            throw new UmurNegatifException(umur);
+        }
+
+        this.umur = umur;
         this.kodePelanggan = kodePelanggan;
         this.nama = nama;
         this.nomorTelepon = nomorTelepon;
@@ -31,8 +37,8 @@ class PelangganPlatinum extends Pelanggan {
 
     Kategori hakAkses [] = {Kategori.Reguler, Kategori.New, Kategori.Original};
 
-    public PelangganPlatinum(String kode, String nama, String telp) {
-        super(kode, nama, telp);
+    public PelangganPlatinum(String kode, String nama, int umur, String telp) {
+        super(kode, nama, umur, telp);
     }
 
     @Override
@@ -67,8 +73,8 @@ class PelangganGold extends Pelanggan {
 
     Kategori hakAkses [] = {Kategori.Reguler, Kategori.New};
 
-    public PelangganGold(String kode, String nama, String telp) {
-        super(kode, nama, telp);
+    public PelangganGold(String kode, String nama, int umur, String telp) {
+        super(kode, nama, umur, telp);
     }
 
     @Override
@@ -108,8 +114,8 @@ class PelangganReguler extends Pelanggan {
 
     Kategori hakAkses = Kategori.Reguler;
 
-    public PelangganReguler(String kode, String nama, String telp) {
-        super(kode, nama, telp);
+    public PelangganReguler(String kode, String nama, int umur, String telp) {
+        super(kode, nama, umur, telp);
         super.setStatusKeanggotaan("tidak Aktif");
     }
 
